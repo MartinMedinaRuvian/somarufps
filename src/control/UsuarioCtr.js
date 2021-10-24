@@ -30,4 +30,17 @@ rutas.post('/', async (req, res)=>{
    }
 })
 
+rutas.post('/inicio-sesion', async (req, res)=>{
+   const datos = req.body;
+   const dao = new UsuarioDAO();
+
+   const correcto = await dao.verificarInicioSesion(datos.username, datos.password);
+
+   if(correcto){
+      res.json('Bienvenido ' + datos.username);
+   }else{
+      res.json('Usuario o contraseña incorrectos')
+   }
+})
+
 module.exports = rutas;
