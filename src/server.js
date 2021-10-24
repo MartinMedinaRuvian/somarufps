@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path')
 
 const app = express();
 
@@ -21,5 +22,10 @@ const usuarioRuta = require('./control/UsuarioCtr')
  */
 app.use('/clientes', clienteRuta)
 app.use('/usuarios', usuarioRuta)
+
+/**
+ * Configuro la carpeta publica donde va ir todo el frontend
+ */
+app.use(express.static(path.join(__dirname, 'publico')))
 
 module.exports = app;
