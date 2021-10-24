@@ -16,15 +16,17 @@ rutas.post('/', async (req, res)=>{
    const yaExiste = await dao.yaExiste(datos.username);
 
    if(yaExiste){
-      res.json('El usuario ya existe');
+      res.status(500).json({mensaje:'El usuario ya existe'});
    }else{
 
-      const guardar = await dao.guardar(datos);
+      const idDatoGuardado = await dao.guardar(datos);
 
-      if(guardar){
-         res.json('Guardado correctamente')
+      if(idDatoGuardado !== -1){
+         res.status(200).json({
+            codigo: idDatoGuardado
+         });
       }else{
-         res.json('Error al guardar')
+         res.status(500).json({mensaje:'Ocurrio un error'});
       }
 
    }
@@ -34,12 +36,12 @@ rutas.post('/inicio-sesion', async (req, res)=>{
    const datos = req.body;
    const dao = new UsuarioDAO();
 
-   const correcto = await dao.verificarInicioSesion(datos.username, datos.password);
+   const dato = await dao.verificarInicioSesion(datos.username, datos.password);
 
-   if(correcto){
-      res.json('Bienvenido ' + datos.username);
+   if(dato.length > 0){
+      res.status(200).json(dato[0])
    }else{
-      res.json('Usuario o contraseña incorrectos')
+      res.status(500).json({mensaje: 'Usuario o contraseña incorrectos'})
    }
 })
 

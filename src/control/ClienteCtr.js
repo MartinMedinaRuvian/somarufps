@@ -11,20 +11,21 @@ rutas.get('/', async(req, res) =>{
 
 rutas.post('/', async (req, res)=>{
    const datos = req.body;
+
    const dao = new ClienteDAO();
 
    const yaExiste = await dao.yaExiste(datos.identificacion);
 
    if(yaExiste){
-      res.json('El cliente ya existe');
+      res.status(500).json({mensaje:'El cliente ya existe'});
    }else{
 
       const guardar = await dao.guardar(datos);
 
       if(guardar){
-         res.json('Guardado correctamente')
+         res.status(200).json(datos);
       }else{
-         res.json('Error al guardar')
+         res.status(500).json({mensaje:'Ocurrio un error'});
       }
 
    }

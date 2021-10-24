@@ -35,12 +35,13 @@ class UsuarioDAO{
         }
 
         const guardar = await conexion.query('INSERT INTO ' + nombreTabla + ' SET ?', [datosGuardar]);
+        console.log(guardar)
         
         if(guardar.affectedRows > 0){
-            return true;
+            return guardar.insertId;
         }
 
-        return false;
+        return -1;
     }
 
     async verificarInicioSesion(username, password){
@@ -49,12 +50,12 @@ class UsuarioDAO{
         obj.username = username;
         obj.password = password;
 
-        const correcto = await conexion.query('SELECT username FROM ' + nombreTabla + ' WHERE username=? AND password=?', [obj.username, obj.password]);
+        const dato = await conexion.query('SELECT * FROM ' + nombreTabla + ' WHERE username=? AND password=?', [obj.username, obj.password]);
 
-        if(correcto.length > 0){
-            return true;
+        if(dato.length > 0){
+            return dato;
         }
-        return false;
+        return [];
     }
 
 }
