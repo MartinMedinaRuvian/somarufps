@@ -1,5 +1,3 @@
-DROP DATABASE somar_bd;
-
 CREATE DATABASE IF NOT EXISTS somar_bd;
 
 USE somar_bd;

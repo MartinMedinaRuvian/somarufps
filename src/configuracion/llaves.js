@@ -1,5 +1,5 @@
 module.exports ={
-    configuracion_mysql:{
+    configuracion_mysql_heroku_produccion:{
         host:'vestacp.ingsistemasufps.co',
         user:'somar_user',
         password:'somar1234abcd',

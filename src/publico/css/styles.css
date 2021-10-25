@@ -37,6 +37,14 @@ margin:0;
 }
 
 .container-inicio p{
+    font-size: 20px;
+}
+
+.container-inicio-sesion span{
+    font-size: 50px;
+}
+
+.container-inicio-sesion .link-crear-cuenta{
     font-weight: 700;
     font-size: 20px;
 }
@@ -47,6 +55,11 @@ margin:0;
 
 h1{
     font-family: "nunito-bold";
+}
+
+.formulario {
+    text-align: center;
+    width: 400px;
 }
 
 
