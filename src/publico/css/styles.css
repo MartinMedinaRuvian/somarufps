@@ -49,6 +49,10 @@ margin:0;
     font-size: 20px;
 }
 
+.contenedor-vistas{
+    margin-top: 80px;
+}
+
 .titulo {
     font-size: 50px;
 }
@@ -124,6 +128,26 @@ h1{
 @media (max-width:767px){
     .card img{
         height: 100%;
+    }
+
+    .contenedor-vistas{
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #navegacion{
+        background-color: #F5F5F5;
+        border-end-start-radius: 20px;
+        border-end-end-radius: 20px;
+    }
+
+    #navbarNav li{
+        font-weight: 700;
+        margin-top: 5px;
+    }
+
+    .formulario{
+        width: 300px;
     }
 }
 

@@ -19,11 +19,11 @@ rutas.post('/', async (req, res)=>{
       res.status(500).json({mensaje:'El usuario ya existe'});
    }else{
 
-      const idDatoGuardado = await dao.guardar(datos);
+      const codigoDatoGuardado = await dao.guardar(datos);
 
-      if(idDatoGuardado !== -1){
+      if(codigoDatoGuardado !== -1){
          res.status(200).json({
-            codigo: idDatoGuardado
+            codigo: codigoDatoGuardado
          });
       }else{
          res.status(500).json({mensaje:'Ocurrio un error'});

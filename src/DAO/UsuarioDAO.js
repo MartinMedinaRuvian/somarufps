@@ -35,7 +35,6 @@ class UsuarioDAO{
         }
 
         const guardar = await conexion.query('INSERT INTO ' + nombreTabla + ' SET ?', [datosGuardar]);
-        console.log(guardar)
         
         if(guardar.affectedRows > 0){
             return guardar.insertId;
