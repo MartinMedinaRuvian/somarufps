@@ -142,8 +142,20 @@ h1{
     }
 
     #navbarNav li{
+        font-size: 20px;
         font-weight: 700;
         margin-top: 5px;
+    }
+
+    #navbarNav li{
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 5px;
+    }
+
+    .btn-registro{
+        font-size: 20px;
+        font-weight: 700;
     }
 
     .formulario{
