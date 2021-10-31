@@ -7,8 +7,14 @@ const UsuarioDAO = require('../DAO/UsuarioDAO');
 
 rutas.get('/', async(req, res) =>{
    const dao = new UsuarioDAO();
-   const datos = await dao.obtenerTodos();
-   res.json(datos)
+
+   try {
+      const datos = await dao.obtenerTodos();
+      res.json(datos)
+   } catch (error) {
+      res.status(500).json({mensaje:error})
+   }
+
 })
 
 rutas.post('/', async(req, res)=>{
@@ -46,20 +52,21 @@ rutas.post('/inicioSesion', async (req, res)=>{
    const dato = req.body;
    const dao = new UsuarioDAO();
 
-   console.log(dato)
+   try {
+      const usuario = await dao.verificarUsuario(dato.username)
 
-   const usuario = await dao.verificarUsuario(dato.username)
-
-   console.log(usuario)
-
-   if(usuario.length > 0){
-      if(!bcrypt.compareSync(dato.password, usuario[0].password)){
-         res.status(400).json({mensaje:'Verifique la contraseña'})
+      if(usuario.length > 0){
+         if(!bcrypt.compareSync(dato.password, usuario[0].password)){
+            res.status(400).json({mensaje:'Contraseña incorrecta'})
+         }else{
+            res.status(200).json(usuario[0])
+         }
       }else{
-         res.status(200).json(usuario[0])
+         res.status(500).json({mensaje: 'Usuario incorrecto'})
       }
-   }else{
-      res.status(500).json({mensaje: 'Verifique el usuario'})
+
+   } catch (error) {
+      res.status(500).json({mensaje:error})
    }
 })
 
