@@ -16,7 +16,7 @@ class UsuarioDAO{
         obj.username = username;
 
         const yaExiste = await conexion.query('SELECT username FROM ' + nombreTabla + ' WHERE username=?', [obj.username]);
-
+        
         if(yaExiste.length > 0){
             return true;
         }
@@ -43,13 +43,12 @@ class UsuarioDAO{
         return -1;
     }
 
-    async verificarInicioSesion(username, password){
+    async verificarUsuario(username){
         const obj = new Usuario();
         
         obj.username = username;
-        obj.password = password;
 
-        const dato = await conexion.query('SELECT * FROM ' + nombreTabla + ' WHERE username=? AND password=?', [obj.username, obj.password]);
+        const dato = await conexion.query('SELECT * FROM ' + nombreTabla + ' WHERE username=?', [obj.username]);
 
         if(dato.length > 0){
             return dato;

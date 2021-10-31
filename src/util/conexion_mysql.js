@@ -4,10 +4,10 @@ const mysql = require('mysql');
 const {promisify} = require('util');
 
 //Requiero la configuracion mysql
-const {configuracion_mysql_heroku_produccion, configuracion_mysql_local} = require('../configuracion/llaves');
+const {configuracionHerokuProduccion, configuracionLocal} = require('../configuracion/llaves');
 
 //Configuro la conexion a mysql con un metodo o funcion llamado pool que tiene el modulo mysql que me permite manejar las consultas de una manera mas sensilla
-const pool = mysql.createPool(configuracion_mysql_heroku_produccion);
+const pool = mysql.createPool(configuracionLocal);
 
 //Preparo la conexion a mysql
 pool.getConnection((err, conexion)=>{

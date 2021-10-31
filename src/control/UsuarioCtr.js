@@ -1,5 +1,7 @@
 const express = require('express');
 const rutas = express.Router();
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const UsuarioDAO = require('../DAO/UsuarioDAO');
 
@@ -9,39 +11,55 @@ rutas.get('/', async(req, res) =>{
    res.json(datos)
 })
 
-rutas.post('/', async (req, res)=>{
-   const datos = req.body;
-   const dao = new UsuarioDAO();
+rutas.post('/', async(req, res)=>{
 
-   const yaExiste = await dao.yaExiste(datos.username);
+   const dato = {
+      username: req.body.username
+    }
+  
+    dato.password = bcrypt.hashSync(req.body.password, saltRounds);
+  
+    try {
+       
+      const dao = new UsuarioDAO()
 
-   if(yaExiste){
-      res.status(500).json({mensaje:'El usuario ya existe'});
-   }else{
+      const yaExiste = await dao.yaExiste(dato.username)
 
-      const codigoDatoGuardado = await dao.guardar(datos);
-
-      if(codigoDatoGuardado !== -1){
-         res.status(200).json({
-            codigo: codigoDatoGuardado
-         });
+      if(yaExiste){
+         res.status(500).json({mensaje:'Ya existe'})
       }else{
-         res.status(500).json({mensaje:'Ocurrio un error'});
+         const idUsuarioGuardar = await dao.guardar(dato)
+         if(idUsuarioGuardar > -1){
+            res.status(200).json({codigo: idUsuarioGuardar})
+         }
       }
-
-   }
+      
+    } catch (error) {
+      return res.status(500).json({
+        mensaje: 'Ocurrio un error'
+      });
+    }
+  
 })
 
-rutas.post('/inicio-sesion', async (req, res)=>{
-   const datos = req.body;
+rutas.post('/inicioSesion', async (req, res)=>{
+   const dato = req.body;
    const dao = new UsuarioDAO();
 
-   const dato = await dao.verificarInicioSesion(datos.username, datos.password);
+   console.log(dato)
 
-   if(dato.length > 0){
-      res.status(200).json(dato[0])
+   const usuario = await dao.verificarUsuario(dato.username)
+
+   console.log(usuario)
+
+   if(usuario.length > 0){
+      if(!bcrypt.compareSync(dato.password, usuario[0].password)){
+         res.status(400).json({mensaje:'Verifique la contraseña'})
+      }else{
+         res.status(200).json(usuario[0])
+      }
    }else{
-      res.status(500).json({mensaje: 'Usuario o contraseña incorrectos'})
+      res.status(500).json({mensaje: 'Verifique el usuario'})
    }
 })
 

@@ -1,11 +1,11 @@
 module.exports ={
-    configuracion_mysql_heroku_produccion:{
+    configuracionHerokuProduccion:{
         host:'vestacp.ingsistemasufps.co',
         user:'somar_user',
         password:'somar1234abcd',
         database:'somar_bd'
     },
-    configuracion_mysql_local:{
+    configuracionLocal:{
         host:'127.0.0.1',
         user:'root',
         password:'123abc',
