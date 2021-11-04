@@ -57,6 +57,12 @@ margin:0;
     font-size: 50px;
 }
 
+.tarjeta-insumo{
+    border-radius: 10px;
+    border: solid #00A82D 0.2px;
+    padding: 20px;
+}
+
 h1{
     font-family: "nunito-bold";
 }
@@ -64,6 +70,12 @@ h1{
 .formulario {
     text-align: center;
     width: 400px;
+}
+
+.footer{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
 }
 
 
