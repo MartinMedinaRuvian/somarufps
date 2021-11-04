@@ -7,7 +7,7 @@ const {promisify} = require('util');
 const {configuracionHerokuProduccion, configuracionLocal} = require('../configuracion/llaves');
 
 //Configuro la conexion a mysql con un metodo o funcion llamado pool que tiene el modulo mysql que me permite manejar las consultas de una manera mas sensilla
-const pool = mysql.createPool(configuracionLocal);
+const pool = mysql.createPool(configuracionHerokuProduccion);
 
 //Preparo la conexion a mysql
 pool.getConnection((err, conexion)=>{
