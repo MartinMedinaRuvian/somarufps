@@ -10,6 +10,11 @@ class InsumoDAO{
         return datos;
     }
 
+    async obtenerFiltrado(filtro){
+        const datos = await conexion.query('SELECT * FROM ' + nombreTabla + " WHERE descripcion LIKE '%" + filtro + "%'");
+        return datos;
+    }
+
     async yaExiste(descripcion){
         const obj = new Insumo();
         
@@ -32,7 +37,7 @@ class InsumoDAO{
         const datosGuardar = {
             descripcion: obj.descripcion,
             stock: obj.stock,
-            costoUnidad: obj.costoUnidad
+            costo_unidad: obj.costoUnidad
         }
 
         const guardar = await conexion.query('INSERT INTO ' + nombreTabla + ' SET ?', [datosGuardar]);
@@ -42,6 +47,31 @@ class InsumoDAO{
         }
 
         return -1;
+    }
+
+    async eliminar(codigo){
+        const obj = new Insumo();
+        
+        obj.codigo = codigo;
+
+        const eliminar = await conexion.query('DELETE FROM ' + nombreTabla + ' WHERE codigo=?', [obj.codigo]);
+
+        if(eliminar.length > 0){
+            return true;
+        }
+        return false;
+    }
+
+    async actualizar(codigo, datos){
+        const obj = new Insumo();
+ 
+        obj.codigo = codigo;
+
+        const actualizar = await conexion.query('UPDATE ' + nombreTabla + ' SET ? WHERE codigo=?', [datos,  obj.codigo]);
+        if(actualizar.length > 0){
+            return true;
+        }
+        return false;
     }
 
 }
