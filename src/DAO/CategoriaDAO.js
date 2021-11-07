@@ -1,12 +1,17 @@
 const Categoria = require('../modelo/Categoria')
 const conexion = require('../util/conexion_mysql');
 
-const nombreTabla = 'categoria';
+const nombreTabla = 'Categoria';
 
 class CategoriaDAO{
 
     async obtenerTodos(){
         const datos = await conexion.query('SELECT * FROM ' + nombreTabla);
+        return datos;
+    }
+
+    async obtenerFiltrado(filtro){
+        const datos = await conexion.query('SELECT * FROM ' + nombreTabla + " WHERE descripcion LIKE '%" + filtro + "%'");
         return datos;
     }
 
@@ -40,6 +45,31 @@ class CategoriaDAO{
         }
 
         return -1;
+    }
+
+    async eliminar(codigo){
+        const obj = new Categoria();
+        
+        obj.codigo = codigo;
+
+        const eliminar = await conexion.query('DELETE FROM ' + nombreTabla + ' WHERE codigo=?', [obj.codigo]);
+
+        if(eliminar.length > 0){
+            return true;
+        }
+        return false;
+    }
+
+    async actualizar(codigo, datos){
+        const obj = new Categoria();
+ 
+        obj.codigo = codigo;
+
+        const actualizar = await conexion.query('UPDATE ' + nombreTabla + ' SET ? WHERE codigo=?', [datos,  obj.codigo]);
+        if(actualizar.length > 0){
+            return true;
+        }
+        return false;
     }
 
 }
