@@ -1,7 +1,7 @@
 const Categoria = require('../modelo/Categoria')
 const conexion = require('../util/conexion_mysql');
 
-const nombreTabla = 'Categoria';
+const nombreTabla = 'categoria';
 
 class CategoriaDAO{
 
