@@ -63,12 +63,8 @@ class InsumoDAO{
     }
 
     async actualizar(codigo, datos){
-        const obj = new Insumo();
- 
-        obj.codigo = codigo;
-
-        const actualizar = await conexion.query('UPDATE ' + nombreTabla + ' SET ? WHERE codigo=?', [datos,  obj.codigo]);
-        if(actualizar.length > 0){
+        const actualizar = await conexion.query('UPDATE ' + nombreTabla + ' SET ? WHERE codigo=?', [datos,  codigo]);
+        if(actualizar.affectedRows > 0){
             return true;
         }
         return false;

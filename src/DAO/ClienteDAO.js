@@ -60,6 +60,19 @@ class ClienteDAO{
         return false;
     }
 
+    async obtener(codigo_usuario){
+        const datos = await conexion.query('SELECT * FROM ' + nombreTabla + ' WHERE codigo_usuario=?', [codigo_usuario]);
+        return datos;
+    }
+
+    async actualizar(codigo, datos){
+        const actualizar = await conexion.query('UPDATE ' + nombreTabla + ' SET ? WHERE codigo=?', [datos,  codigo]);
+        if(actualizar.affectedRows > 0){
+            return true;
+        }
+        return false;
+    }
+
 }
 
 module.exports= ClienteDAO;

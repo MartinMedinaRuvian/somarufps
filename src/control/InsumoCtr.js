@@ -66,7 +66,11 @@ rutas.put('/:codigo', async(req, res) =>{
    const dao = new InsumoDAO();
    try {
       const respuesta = await dao.actualizar(codigo, datos);
-      res.status(200).json(respuesta);
+      if(respuesta){
+         res.status(200).json({mensaje:'Información actualizada satisfactoreamente'});
+      }else{
+         res.status(400).json({mensaje:'Ocurrio algo'})
+      }
    } catch (error) {
       res.status(500).json({mensaje:error})
    }
