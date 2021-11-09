@@ -50,17 +50,12 @@ rutas.put('/:codigo', async(req, res) =>{
    const datos = req.body;
    const dao = new ClienteDAO();
    try {
-      const yaExiste = await dao.yaExiste(datos.identificacion);
-      if(yaExiste){
-         res.status(400).json({mensaje:'El numero de identificación ya existe'});
+      const respuesta = await dao.actualizar(codigo, datos);
+      if(respuesta){
+         res.status(200).json({mensaje:'Actualizado correctamente'});
       }else{
-            const respuesta = await dao.actualizar(codigo, datos);
-            if(respuesta){
-               res.status(200).json({mensaje:'Actualizado correctamente'});
-            }else{
-               res.status(400).json({mensaje:'Ocurrio algo'});
-            }
-      }
+         res.status(400).json({mensaje:'Ocurrio algo'});
+      }     
    } catch (error) {
       res.status(500).json({mensaje:error})
    }

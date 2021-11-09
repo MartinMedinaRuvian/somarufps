@@ -10,6 +10,11 @@ class ProductoDAO{
         return datos;
     }
 
+    async obtenerFiltrado(filtro){
+        const datos = await conexion.query('SELECT * FROM ' + nombreTabla + " WHERE descripcion LIKE '%" + filtro + "%'");
+        return datos;
+    }
+
     async yaExiste(descripcion){
         const obj = new Producto();
         
@@ -32,8 +37,8 @@ class ProductoDAO{
         const datosGuardar = {
             descripcion: obj.descripcion,
             foto: obj.foto,
-            precioUnidad: obj.precioUnidad,
-            codigoCategoria: obj.codigoCategoria
+            precio_unidad: obj.precioUnidad,
+            codigo_categoria: obj.codigoCategoria
         }
 
         const guardar = await conexion.query('INSERT INTO ' + nombreTabla + ' SET ?', [datosGuardar]);
@@ -43,6 +48,27 @@ class ProductoDAO{
         }
 
         return -1;
+    }
+
+    async eliminar(codigo){
+        const obj = new Producto();
+        
+        obj.codigo = codigo;
+
+        const eliminar = await conexion.query('DELETE FROM ' + nombreTabla + ' WHERE codigo=?', [obj.codigo]);
+
+        if(eliminar.length > 0){
+            return true;
+        }
+        return false;
+    }
+
+    async actualizar(codigo, datos){
+        const actualizar = await conexion.query('UPDATE ' + nombreTabla + ' SET ? WHERE codigo=?', [datos,  codigo]);
+        if(actualizar.affectedRows > 0){
+            return true;
+        }
+        return false;
     }
 
 }
