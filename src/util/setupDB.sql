@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS usuario(
    password CHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS cliente(
+CREATE TABLE IF NOT EXISTS persona(
    codigo INT(50) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    nombres CHAR(100) NOT NULL,
    apellidos CHAR(100) NOT NULL,
@@ -16,19 +16,10 @@ CREATE TABLE IF NOT EXISTS cliente(
    telefono CHAR(50),
    email CHAR(200),
    codigo_usuario INT(50) NOT NULL,
+   tipo CHAR(1) NOT NULL,
    CONSTRAINT cliente_llave_usuario FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo)
 );
 
-CREATE TABLE IF NOT EXISTS administrador(
-   codigo INT(50) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   nombres CHAR(100) NOT NULL,
-   apellidos CHAR(100) NOT NULL,
-   identificacion CHAR(50) NOT NULL,
-   telefono CHAR(50),
-   email CHAR(200),
-   codigo_usuario INT(50) NOT NULL,
-   CONSTRAINT administrador_llave_usuario FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo)
-);
 
 CREATE TABLE IF NOT EXISTS insumo(
    codigo INT(50) NOT NULL AUTO_INCREMENT PRIMARY KEY,
