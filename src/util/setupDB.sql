@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS persona(
    email CHAR(200),
    codigo_usuario INT(50) NOT NULL,
    tipo CHAR(1) NOT NULL,
-   CONSTRAINT cliente_llave_usuario FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo)
+   CONSTRAINT persona_llave_usuario FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo)
 );
 
 
@@ -66,12 +66,12 @@ CREATE TABLE IF NOT EXISTS pedido_producto(
    CONSTRAINT pedido_producto_llave_pedido FOREIGN KEY (codigo_pedido) REFERENCES pedido(codigo)
 );
 
-CREATE TABLE IF NOT EXISTS pedido_cliente(
+CREATE TABLE IF NOT EXISTS pedido_persona(
    codigo INT(50) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   codigo_cliente INT(50) NOT NULL,
+   codigo_persona INT(50) NOT NULL,
    codigo_pedido INT(50) NOT NULL,
-   CONSTRAINT pedido_cliente_llave_cliente FOREIGN KEY (codigo_cliente) REFERENCES cliente(codigo),
-   CONSTRAINT pedido_cliente_llave_pedido FOREIGN KEY (codigo_pedido) REFERENCES pedido(codigo)
+   CONSTRAINT pedido_persona_llave_persona FOREIGN KEY (codigo_persona) REFERENCES persona(codigo),
+   CONSTRAINT pedido_persona_llave_pedido FOREIGN KEY (codigo_pedido) REFERENCES pedido(codigo)
 );
 
 CREATE TABLE IF NOT EXISTS factura(
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS factura(
    fecha DATE NOT NULL,
    hota CHAR(20),
    codigo_pedido_producto INT(50) NOT NULL,
-   codigo_pedido_cliente INT(50) NOT NULL,
+   codigo_pedido_persona INT(50) NOT NULL,
    CONSTRAINT factura_llave_pedido_producto FOREIGN KEY (codigo_pedido_producto) REFERENCES pedido_producto(codigo),
-   CONSTRAINT factura_llave_pedido_cliente FOREIGN KEY (codigo_pedido_cliente) REFERENCES pedido_cliente(codigo)
+   CONSTRAINT factura_llave_pedido_persona FOREIGN KEY (codigo_pedido_persona) REFERENCES pedido_persona(codigo)
 );
