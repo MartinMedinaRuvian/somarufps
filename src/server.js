@@ -26,7 +26,7 @@ app.use(history());
 /**
  * Importo rutas a usar en el servidor
  */
-const clienteRuta = require('./control/ClienteCtr')
+const personaRuta = require('./control/PersonaCtr')
 const usuarioRuta = require('./control/UsuarioCtr')
 const categoriaRuta = require('./control/CategoriaCtr')
 const insumoRuta = require('./control/InsumoCtr')
@@ -35,7 +35,7 @@ const productoRuta = require('./control/ProductoCtr')
 /**
  * configuro las rutas del servidor
  */
-app.use('/clientes', clienteRuta)
+app.use('/personas', personaRuta)
 app.use('/usuarios', usuarioRuta)
 app.use('/categorias', categoriaRuta)
 app.use('/insumos', insumoRuta)

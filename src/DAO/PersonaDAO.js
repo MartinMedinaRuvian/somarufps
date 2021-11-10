@@ -1,9 +1,9 @@
-const Cliente = require('../modelo/Cliente')
+const Cliente = require('../modelo/Persona')
 const conexion = require('../util/conexion_mysql');
 
-const nombreTabla = 'cliente';
+const nombreTabla = 'persona';
 
-class ClienteDAO{
+class PersonaDAO{
 
     async obtenerTodos(){
         const datos = await conexion.query('SELECT * FROM ' + nombreTabla);
@@ -26,17 +26,27 @@ class ClienteDAO{
     async guardar(datos){
 
         const {nombres, apellidos, identificacion, telefono, email, codigo_usuario} = datos;
-
-        const obj = new Cliente(nombres, apellidos, identificacion, telefono, email, codigo_usuario);
+        let tipo = '1';
+    
+        const usernameUsuario = await conexion.query('SELECT username FROM usuario WHERE codigo=?', [codigo_usuario]);
+        if(usernameUsuario.length > 0){
+            if(usernameUsuario[0].username === 'admin'){
+                tipo = '2';
+            }
+        }      
         
+        const obj = new Cliente(nombres, apellidos, identificacion, telefono, email, codigo_usuario, tipo);
+
         const datosGuardar = {
             nombres: obj.nombres,
             apellidos: obj.apellidos,
             identificacion: obj.identificacion,
             telefono: obj.telefono,
             email: obj.email,
-            codigo_usuario: obj.codigo_usuario
+            codigo_usuario: obj.codigo_usuario,
+            tipo
         }
+
 
         const guardar = await conexion.query('INSERT INTO ' + nombreTabla + ' SET ?', [datosGuardar]);
         
@@ -75,4 +85,4 @@ class ClienteDAO{
 
 }
 
-module.exports= ClienteDAO;
+module.exports= PersonaDAO;

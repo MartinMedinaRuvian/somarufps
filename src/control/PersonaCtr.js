@@ -1,10 +1,10 @@
 const express = require('express');
 const rutas = express.Router();
 
-const ClienteDAO = require('../DAO/ClienteDAO');
+const PersonaDAO = require('../DAO/PersonaDAO');
 
 rutas.get('/', async(req, res) =>{
-   const dao = new ClienteDAO();
+   const dao = new PersonaDAO();
    try {
       const datos = await dao.obtenerTodos();
       res.status(200).json(datos);
@@ -16,7 +16,7 @@ rutas.get('/', async(req, res) =>{
 rutas.get('/:codigo_usuario', async(req, res) =>{
    const {codigo_usuario} = req.params
    console.log(codigo_usuario)
-   const dao = new ClienteDAO();
+   const dao = new PersonaDAO();
    try {
       const datos = await dao.obtener(codigo_usuario);
       res.status(200).json(datos[0]);
@@ -27,11 +27,11 @@ rutas.get('/:codigo_usuario', async(req, res) =>{
 
 rutas.post('/', async (req, res)=>{
    const datos = req.body;
-   const dao = new ClienteDAO();
+   const dao = new PersonaDAO();
    try {     
       const yaExiste = await dao.yaExiste(datos.identificacion);
       if(yaExiste){
-         res.status(500).json({mensaje:'El cliente ya existe'});
+         res.status(500).json({mensaje:'El Persona ya existe'});
       }else{
          const guardar = await dao.guardar(datos);
          if(guardar){
@@ -48,7 +48,7 @@ rutas.post('/', async (req, res)=>{
 rutas.put('/:codigo', async(req, res) =>{
    const {codigo} = req.params;
    const datos = req.body;
-   const dao = new ClienteDAO();
+   const dao = new PersonaDAO();
    try {
       const respuesta = await dao.actualizar(codigo, datos);
       if(respuesta){

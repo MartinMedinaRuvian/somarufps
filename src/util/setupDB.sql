@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS persona(
    telefono CHAR(50),
    email CHAR(200),
    codigo_usuario INT(50) NOT NULL,
-   tipo CHAR(1) NOT NULL,
+   tipo CHAR(1) NOT NULL DEFAULT '1',
    CONSTRAINT persona_llave_usuario FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo)
 );
 
