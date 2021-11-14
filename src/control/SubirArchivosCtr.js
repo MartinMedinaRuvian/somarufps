@@ -33,6 +33,17 @@ function eliminarImagen(imagen){
     return false;
 }
 
+function eliminarTodasLasImagenes(){
+    try {
+        fs.unlinkSync(path.join(__dirname, '../imagenes/'))
+        return true;
+      } catch(err) {
+        console.error('Something wrong happened removing the file', err)
+      }
+    return false;
+}
+
+
 const upload = multer({storage});
 
 rutas.post('/', upload.single('file'), (req, res)=>{
