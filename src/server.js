@@ -23,6 +23,11 @@ app.use(history());
  */
  app.use(express.static(path.join(__dirname, 'publico')))
 
+ /**
+  * Configuro carpeta publica y estatica para acceder a las imagenes
+  */
+  app.use('/imagenes', express.static(path.join(__dirname, 'imagenes')));
+
 /**
  * Importo rutas a usar en el servidor
  */
@@ -31,6 +36,7 @@ const usuarioRuta = require('./control/UsuarioCtr')
 const categoriaRuta = require('./control/CategoriaCtr')
 const insumoRuta = require('./control/InsumoCtr')
 const productoRuta = require('./control/ProductoCtr')
+const subirArchivosRuta = require('./control/SubirArchivosCtr')
 
 /**
  * configuro las rutas del servidor
@@ -40,5 +46,6 @@ app.use('/usuarios', usuarioRuta)
 app.use('/categorias', categoriaRuta)
 app.use('/insumos', insumoRuta)
 app.use('/productos', productoRuta)
+app.use('/subir', subirArchivosRuta)
 
 module.exports = app;

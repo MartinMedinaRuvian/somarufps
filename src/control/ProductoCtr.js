@@ -26,6 +26,7 @@ rutas.get('/:filtro', async(req, res) =>{
 
 rutas.post('/', async (req, res)=>{
    const datos = req.body;
+   console.log(datos)
    const dao = new ProductoDAO();  
    try {  
       if(datos.descripcion !== undefined){
