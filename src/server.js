@@ -37,6 +37,7 @@ const categoriaRuta = require('./control/CategoriaCtr')
 const insumoRuta = require('./control/InsumoCtr')
 const productoRuta = require('./control/ProductoCtr')
 const subirArchivosRuta = require('./control/SubirArchivosCtr')
+const productoInsumoRuta = require('./control/ProductoInsumoCtr')
 
 /**
  * configuro las rutas del servidor
@@ -47,5 +48,6 @@ app.use('/categorias', categoriaRuta)
 app.use('/insumos', insumoRuta)
 app.use('/productos', productoRuta)
 app.use('/subir', subirArchivosRuta)
+app.use('/producto-insumo', productoInsumoRuta)
 
 module.exports = app;

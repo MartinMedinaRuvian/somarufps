@@ -10,6 +10,11 @@ class PersonaDAO{
         return datos;
     }
 
+    async filtrarPorCategoria(codigoCategoria, descripcion){
+        const datos = await conexion.query('SELECT * FROM ' + nombreTabla + " WHERE codigo_categoria=? AND descripcion LIKE '%" + descripcion + "%'", [codigoCategoria]);
+        return datos;
+    }
+
     async yaExiste(identificacion){
         const obj = new Cliente();
         

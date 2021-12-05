@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS producto_insumo(
    codigo INT(50) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    codigo_producto INT(50) NOT NULL,
    codigo_insumo INT(50) NOT NULL,
+   cantidad INT(10) NOT NULL DEFAULT 1,
    CONSTRAINT producto_insumo_llave_producto FOREIGN KEY (codigo_producto) REFERENCES producto(codigo),
    CONSTRAINT producto_insumo_llave_insumo FOREIGN KEY (codigo_insumo) REFERENCES insumo(codigo)
 );
