@@ -13,6 +13,21 @@ rutas.get('/', async(req, res) =>{
    }
 });
 
+rutas.post('/filtro-categoria/:codigo_categoria', async(req, res) =>{
+   const {codigo_categoria} = req.params
+   const {descripcion} = req.body
+   const dao = new ProductoDAO();
+   try {
+      const datos = await dao.filtrarPorCategoria(codigo_categoria, descripcion);
+      console.log(datos, 'DATOS')
+      res.status(200).json(datos);
+   } catch (error) {
+      console.log(error)
+      res.status(500).json({mensaje:error});
+   }
+});
+
+
 rutas.get('/:filtro', async(req, res) =>{
    const { filtro } = req.params
    const dao = new ProductoDAO();

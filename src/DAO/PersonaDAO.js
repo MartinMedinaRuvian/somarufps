@@ -11,6 +11,7 @@ class PersonaDAO{
     }
 
     async filtrarPorCategoria(codigoCategoria, descripcion){
+        console.log(codigoCategoria, descripcion)
         const datos = await conexion.query('SELECT * FROM ' + nombreTabla + " WHERE codigo_categoria=? AND descripcion LIKE '%" + descripcion + "%'", [codigoCategoria]);
         return datos;
     }
