@@ -35,6 +35,17 @@ rutas.get('/filtro-producto/:codigo_producto', async(req, res) =>{
    }
 });
 
+rutas.get('/filtro-producto-catalogo/:codigo_producto', async(req, res) =>{
+   const { codigo_producto } = req.params
+   const dao = new ProductoInsumoDAO();
+   try {
+      const datos = await dao.filtroPorCodigoProductoCatalogo(codigo_producto);
+      res.status(200).json(datos);
+   } catch (error) {
+      res.status(500).json({mensaje:error})
+   }
+});
+
 
 rutas.post('/', async (req, res)=>{
    const datos = req.body;

@@ -20,6 +20,11 @@ class ProductoInsumoDAO{
         return datos;
     }
 
+    async filtroPorCodigoProductoCatalogo(codigoProducto){
+        const datos = await conexion.query('SELECT * FROM ' + nombreTabla + ' WHERE codigo_producto=?', [codigoProducto]);
+        return datos;
+    }
+
     async guardar(datos){
 
         const {codigoProducto, codigoInsumo, cantidad} = datos;
